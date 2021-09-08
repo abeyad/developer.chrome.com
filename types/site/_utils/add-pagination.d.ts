@@ -15,10 +15,10 @@
  */
 
 declare global {
-  export interface PaginatedPage<T extends {}> extends T {
+  export interface PaginatedPage extends VirtualCollectionItem {
     date: Date;
     href: string;
-    elements: TODO[];
+    elements: FrontMatterData[];
     pagination: EleventyPagination;
     permalink: string;
   }

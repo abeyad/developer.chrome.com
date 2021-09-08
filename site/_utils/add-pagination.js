@@ -41,48 +41,49 @@ const createPermalink = (baseUrl, i) => createHref(baseUrl, i) + 'index.html';
 
 /**
  * Take array of elements of an item and returns an array of paginated pages for that item.
- * @param {VirtualCollectionItem} item Item to paginate.
+ * @param {FrontMatterData[]} elements Elements to paginate.
+ * @param {VirtualCollectionItem} additionalData Additional data to add pagination.
  * @return {PaginatedPage[]} An array of items to display, including href and index.
  */
-module.exports = item => {
-  if (typeof item !== 'object') {
-    throw new Error('`item` must be an object');
-  }
-
-  if (!Array.isArray(item.elements)) {
+module.exports = (elements, additionalData) => {
+  if (!Array.isArray(elements)) {
     throw new Error(
-      `\`item.elements\` must be an array, you passed in a ${typeof item.elements}`
+      `\`elements\` must be an array, you passed in a ${typeof elements}`
     );
   }
 
-  /** @type PaginatedPage<VirtualCollectionItem>[] */
+  if (typeof additionalData !== 'object') {
+    throw new Error('`item` must be an object');
+  }
+
+  /** @type PaginatedPage[] */
   const paginated = [];
-  const total = Math.ceil(item.elements.length / paginationCount);
-  const date = item.elements[0].date;
+  const total = Math.ceil(elements.length / paginationCount);
+  const date = elements[0].date;
   const hrefs = Array.from({length: total}).map((_, i) =>
-    createHref(item.url, i)
+    createHref(additionalData.url, i)
   );
 
   for (let i = 0; i < total; i++) {
     const start = i * paginationCount;
     paginated.push({
-      ...item,
+      ...additionalData,
       date,
-      href: createHref(item.url, i),
+      href: createHref(additionalData.url, i),
       pagination: {
-        items: item.elements.slice(start, start + paginationCount),
+        items: elements.slice(start, start + paginationCount),
         pageNumber: i,
         hrefs,
         href: {
-          next: i < total - 1 ? createHref(item.url, i + 1) : null,
-          previous: i > 0 ? createHref(item.url, i - 1) : null,
-          first: createHref(item.url, 0),
-          last: createHref(item.url, total - 1),
+          next: i < total - 1 ? createHref(additionalData.url, i + 1) : null,
+          previous: i > 0 ? createHref(additionalData.url, i - 1) : null,
+          first: createHref(additionalData.url, 0),
+          last: createHref(additionalData.url, total - 1),
         },
         data: 'WARNING_SYNTHETIC_PAGINATION',
         size: total,
       },
-      permalink: createPermalink(item.url, i),
+      permalink: createPermalink(additionalData.url, i),
     });
   }
 

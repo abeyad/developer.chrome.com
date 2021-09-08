@@ -38,18 +38,15 @@ const index = (items, locale) => {
 /**
  * @param {VirtualCollectionItem[]} items
  * @param {string} [locale]
- * @return {PaginatedPage<VirtualCollectionItem>[]}
+ * @return {PaginatedPage[]}
  */
 const individual = (items, locale) => {
-  /** @type PaginatedPage<VirtualCollectionItem>[] */
+  /** @type PaginatedPage[] */
   let paginated = [];
   for (const item of items) {
     if (item.elements.length > 0) {
       paginated = paginated.concat(
-        addPagination({
-          ...item,
-          elements: filterByLocale(item.elements, locale),
-        })
+        addPagination(filterByLocale(item.elements, locale), item)
       );
     }
   }
