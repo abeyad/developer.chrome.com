@@ -1,4 +1,3 @@
-// @ts-nocheck
 /*
  * Copyright 2020 Google LLC
  *
@@ -26,7 +25,7 @@ const {i18n} = require('../_filters/i18n');
 
 /**
  * @param {string} locale
- * @return {EleventyData}
+ * @return {Partial<EleventyData>}
  */
 module.exports = locale => ({
   eleventyComputed: {
@@ -50,6 +49,7 @@ module.exports = locale => ({
       for (const tag of tags) {
         const posts = tag.posts[locale];
         if (posts.length) {
+          // @ts-ignore
           paginated = paginated.concat(addPagination(posts, tag));
         }
       }
