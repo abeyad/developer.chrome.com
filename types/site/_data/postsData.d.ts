@@ -21,6 +21,10 @@ declare global {
     [key: string]: AuthorsItem;
   }
 
+  /**
+   * Represents the FrontMatter of most Markdown files.
+   * These fields come from the `.md` files themselves.
+   */
   export interface FrontMatterData {
     title: string;
     layout?: string;
@@ -40,11 +44,10 @@ declare global {
       url: string;
     };
     permalink?: string;
-    type?: string;
+    type?: PostTypes;
     i18n?: {
       [key: string]: TODO;
     };
-    pagination?: EleventyPagination;
     draft?: boolean;
     api?: string;
     extra_permissions?: string[];

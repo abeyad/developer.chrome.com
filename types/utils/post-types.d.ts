@@ -15,17 +15,7 @@
  */
 
 declare global {
-  export interface AlgoliaCollectionItem {
-    content?: string;
-    description?: string;
-    locale: string;
-    objectID: string;
-    image?: string;
-    tags: string[];
-    title: string;
-    type?: PostTypes;
-    url: string;
-  }
+  export type PostTypes = 'blogPost' | 'doc' | 'landing' | 'release';
 }
 
 // empty export to keep file a module
