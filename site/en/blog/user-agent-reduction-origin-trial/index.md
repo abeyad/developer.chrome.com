@@ -222,4 +222,4 @@ months. We will publish more details on the deprecation trial when it's ready.
 ## How do I share feedback for the User-Agent Reduction origin trial?
 
 Submit any issues or feedback to the UA Reduction [Github
-repository](https://github.com/abeyad/user-agent-reduction/issues).
+repository](https://github.com/miketaylr/user-agent-reduction/issues).
